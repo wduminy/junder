@@ -18,4 +18,4 @@ Using this name you can now do:
 java -jar junder.jar my-junder.properties 
 ~~~
 
-More information on what you are looking at can be obtained from the [User Guide](https://bitbucket.org/codespear/junder/wiki/User_Guide).
+More information on what you are looking at can be obtained from the [User Guide](https://junder.netlify.app/userguide/).
