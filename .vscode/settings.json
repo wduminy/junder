@@ -1,0 +1,10 @@
+{
+	"java.configuration.updateBuildConfiguration": "automatic",
+	"java.project.sourcePaths": [
+		"junder.model/src",
+		"junder.swing/src"
+	],
+	"cSpell.words": [
+		"Junder"
+	]
+}

@@ -1,0 +1,13 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"type": "java",
+			"name": "Swing on junder",
+			"request": "launch",
+			"mainClass": "org.junder.window.Junder",
+			"projectName": "swing",
+			"args": "junder-example.properties"
+		}
+	]
+}
