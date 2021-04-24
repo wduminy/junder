@@ -1,0 +1,51 @@
+
+@startuml swing_module
+title Swing Module Overview
+package "JDK Swing" {
+  class Component
+  class SwingWorker
+}
+
+package "Model module" {
+  class DomainData
+}
+
+package ui.model {
+  class Document
+  interface ModelEvent
+}
+
+package widgets {
+  class Widget
+}
+
+package widgets.model {
+  interface WidgetModel
+}
+
+
+package ui.view {
+  class View
+}
+
+package ui.task {
+  class Task
+}
+
+
+Task --> Document : uses
+Document --> DomainData : contains
+Document --> ModelEvent : emits
+View --> ModelEvent : observes
+View --> Document : updates
+View --> DomainData : displays
+View --> Task : initiates
+View --> Widget : contains
+Widget --> WidgetModel : uses
+Document --> ModelEvent : emits
+Document --> WidgetModel : implements
+View --> Component : uses
+Widget --> Component : uses
+Task --> SwingWorker
+@enduml
+

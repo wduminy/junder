@@ -1,0 +1,7 @@
+{
+	"cSpell.words": [
+		"Junder"
+	],
+	"plantuml.exportOutDir": "./src/images",
+	"plantuml.exportSubFolder": false
+}
