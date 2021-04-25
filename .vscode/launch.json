@@ -7,7 +7,7 @@
 			"request": "launch",
 			"mainClass": "org.junder.window.Junder",
 			"projectName": "swing",
-			"args": "junder-example.properties"
+			"args": "junder.properties"
 		}
 	]
 }
