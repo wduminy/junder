@@ -6,7 +6,7 @@ layout: page.njk
 ## Architecture
 
 This module uses a *document driven architecture*.  The document is a term we use to refer to the state of the application.  There are a number of different types of elements in the document:
-  - The *domain model elements* are entirely independent from the user interface.  It is implemented in the [Model module](/model).
+  - The *domain model elements* are entirely independent from the user interface.  They are implemented in the [Model module](/model).
   - The *interface model elements* describe the current state of the user interface; such as which views are open and what objects are selected. 
   - The *task model elements* is the state that relates to [background threads](https://docs.oracle.com/javase/tutorial/uiswing/concurrency/worker.html).  
 
