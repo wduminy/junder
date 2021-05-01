@@ -66,8 +66,10 @@
 			</plugin>
 		</plugins>
 	</build>
+
 	<modules>
 		<module>junder.model</module>
+		<module>junder.swing</module>
 		<module>junder.fx</module>
 	</modules>
 </project>

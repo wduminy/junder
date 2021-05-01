@@ -5,7 +5,7 @@
 			"type": "java",
 			"name": "FX App",
 			"request": "launch",
-			"mainClass": "com.junder/com.junder.App",
+			"mainClass": "com.junder.fx/com.junder.App",
 			"projectName": "fx"
 		},
 		{

@@ -16,12 +16,11 @@ public class AdjacencyStructure {
 		sort(SortMethod.DeepDependenciesFirst);
 		optimise();
 	}
-	
-	
+
 	private void optimise() {
-		int cycles = -1; 
-		for (int i = 0; i < size(); i++) 
-			for (int j = i+1; j < size(); j++) {
+		int cycles = -1;
+		for (int i = 0; i < size(); i++)
+			for (int j = i + 1; j < size(); j++) {
 				int ij = getPackage(i).countUsagesTo(getPackage(j));
 				if (ij > 0) {
 					int ji = getPackage(j).countUsagesTo(getPackage(i));
@@ -31,44 +30,45 @@ public class AdjacencyStructure {
 						swap(i, j);
 						int newCycles = cycleUsingCount();
 						if (newCycles > cycles)
-							swap(i,j); //swap back
+							swap(i, j); // swap back
 						else
-							cycles = newCycles; 
+							cycles = newCycles;
 					}
 				}
 			}
-		
+
 	}
 
 	public void swap(int i, int j) {
 		AdjacencyPackage oldi = packages.set(i, packages.get(j));
 		packages.set(j, oldi);
 	}
-	
+
 	protected final ArrayList<AdjacencyPackage> packages = new ArrayList<>();
+
 	private class AdjacencyPackage {
 
 		public final JavaPackage inner;
 		private int depth = -1;
 
-		public AdjacencyPackage(JavaPackage p) {
+		AdjacencyPackage(JavaPackage p) {
 			inner = p;
 		}
 
-		public void calculateDepth(int i,LinkedList<AdjacencyPackage> path)  {
+		void calculateDepth(int i, LinkedList<AdjacencyPackage> path) {
 			if (depth < i) {
 				path.addLast(this);
 				for (AdjacencyPackage p : dependancies()) {
 					if (!path.contains(p)) {
-						p.calculateDepth(i+1,path);
+						p.calculateDepth(i + 1, path);
 					}
 				}
 				path.removeLast();
-				depth = i;			
+				depth = i;
 			}
 		}
 
-		public int numberOfDependencies() {
+		int numberOfDependencies() {
 			int r = 0;
 			for (AdjacencyPackage p : packages)
 				if (p != this)
@@ -76,7 +76,7 @@ public class AdjacencyStructure {
 			return r;
 		}
 
-		public ArrayList<AdjacencyPackage> dependancies() {
+		ArrayList<AdjacencyPackage> dependancies() {
 			ArrayList<AdjacencyPackage> r = new ArrayList<>();
 			for (AdjacencyPackage p : packages)
 				if (p != this && numberOfUsagesTo(p) > 0)
@@ -88,52 +88,54 @@ public class AdjacencyStructure {
 			return inner.countUsagesTo(p.inner);
 		}
 
-		public int dependencyDepth() {
+		int dependencyDepth() {
 			return depth;
 		}
 	}
+
 	protected void calculateDepths() {
-		for (AdjacencyPackage p : packages) 
+		for (AdjacencyPackage p : packages)
 			p.calculateDepth(0, new LinkedList<>());
 	}
+
 	protected void sort(SortMethod v) {
 		packages.sort(v.comparator);
 	}
+
 	public JavaPackage getPackage(int i) {
 		return packages.get(i).inner;
 	}
+
 	public int size() {
 		return packages.size();
 	}
-	
+
 	public int cycleUsingCount() {
 		int r = 0;
-		for (int i = 0; i < size(); i++) 
-			for (int j = i+1; j < size(); j++)
+		for (int i = 0; i < size(); i++)
+			for (int j = i + 1; j < size(); j++)
 				r += getPackage(i).countUsagesTo(getPackage(j));
 		return r;
 	}
-	
+
 	public static enum SortMethod {
-		DeepDependenciesFirst(
-				(a,b) -> {
-					return b.dependencyDepth() - a.dependencyDepth();
-				}),
-		NumberOfDependancies(
-				(a,b) -> {
-					return b.numberOfDependencies() - a.numberOfDependencies();
-				}
-		);
-		public final Comparator<AdjacencyPackage> comparator;
+		DeepDependenciesFirst((a, b) -> {
+			return b.dependencyDepth() - a.dependencyDepth();
+		}), NumberOfDependancies((a, b) -> {
+			return b.numberOfDependencies() - a.numberOfDependencies();
+		});
+
+		final Comparator<AdjacencyPackage> comparator;
+
 		SortMethod(Comparator<AdjacencyPackage> c) {
 			comparator = c;
 		}
-		
 
 	}
 
 	/**
-	 * Collects all packages that has a path to the root.  
+	 * Collects all packages that has a path to the root.
+	 * 
 	 * @param included
 	 */
 	public Collection<? extends JavaPackage> linkedPackages(JavaPackage root) {
@@ -144,7 +146,7 @@ public class AdjacencyStructure {
 			JavaPackage p = fringe.remove();
 			if (!result.contains(p)) {
 				result.add(p);
-				for (JavaPackage e : p.usingPackages()) 
+				for (JavaPackage e : p.usingPackages())
 					if (!result.contains(e))
 						fringe.add(e);
 			}

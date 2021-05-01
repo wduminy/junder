@@ -20,10 +20,10 @@ import org.apache.bcel.generic.MethodGen;
 import org.apache.bcel.generic.NEW;
 import org.apache.bcel.generic.ObjectType;
 import org.apache.bcel.generic.Type;
-import org.junder.process.JavaClassConsumer;
+import org.junder.bcel.JavaClassConsumer;
 import org.junder.process.JavaClassName;
 
-public class ProgramStructureImpl implements JavaClassConsumer, ProgramStructure {
+class ProgramStructureImpl implements JavaClassConsumer, ProgramStructure {
 	HashMap<String, JavaPackageImpl> packages = new HashMap<>();
 	HashMap<String, JavaClassImpl> classes = new HashMap<>();
 
@@ -59,14 +59,11 @@ public class ProgramStructureImpl implements JavaClassConsumer, ProgramStructure
 					}
 					if (ins instanceof INVOKESTATIC) {
 						INVOKESTATIC invins = (INVOKESTATIC) ins;
-						ConstantCP ref = (ConstantCP) constantPool
-								.getConstant(invins.getIndex());
+						ConstantCP ref = (ConstantCP) constantPool.getConstant(invins.getIndex());
 						classIndex = ref.getClassIndex();
 					}
 					if (classIndex != null) {
-						String className = constantPool.getConstantString(
-								classIndex,
-								Const.CONSTANT_Class);
+						String className = constantPool.getConstantString(classIndex, Const.CONSTANT_Class);
 						c.addUsage(obtainClass(className.replace('/', '.')));
 					}
 				}
@@ -76,17 +73,14 @@ public class ProgramStructureImpl implements JavaClassConsumer, ProgramStructure
 		}
 
 	}
-	
+
 	private void addUsageIfValid(JavaClassImpl c, Type type) {
 		Objects.requireNonNull(c);
 		Objects.requireNonNull(type);
 		if (type instanceof ObjectType) {
-			c.addUsage(obtainClass(
-					ObjectType.class.cast(type).getClassName()
-					));
+			c.addUsage(obtainClass(ObjectType.class.cast(type).getClassName()));
 		}
 	}
-
 
 	private JavaClassImpl obtainClass(String className) {
 		JavaClassImpl r = classes.get(className);

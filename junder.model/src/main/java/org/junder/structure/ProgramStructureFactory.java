@@ -5,10 +5,11 @@ import org.junder.process.TraverseInput;
 import org.junder.util.Messenger;
 
 public class ProgramStructureFactory {
-	
-	private ProgramStructureFactory() {} // the factory cannot be constructed
-	
-	public static ProgramStructure create(TraverseInput input, Messenger messenger) throws Exception {
+
+	private ProgramStructureFactory() {
+	} // the factory cannot be constructed
+
+	static ProgramStructure create(TraverseInput input, Messenger messenger) throws Exception {
 		JavaClassTraverser traverser = new JavaClassTraverser(input, messenger);
 		ProgramStructureImpl result = new ProgramStructureImpl();
 		traverser.forEach(result);
@@ -16,7 +17,7 @@ public class ProgramStructureFactory {
 	}
 
 	public static ProgramStructure create(String inputFile, Messenger messenger) throws Exception {
-		return create(new TraverseInput(inputFile,true), messenger);
+		return create(new TraverseInput(inputFile, true), messenger);
 	}
-	
+
 }
