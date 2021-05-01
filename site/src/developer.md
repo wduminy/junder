@@ -13,4 +13,4 @@ The Junder system consists of two components:
 
     
 ## Footer
-See the page on [markdown](Markdown) for more information about how to edit this wiki.
+See the page on [markdown](/markdown) for more information about how to edit this wiki.

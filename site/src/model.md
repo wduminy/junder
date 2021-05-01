@@ -16,7 +16,7 @@ Command to run the application:
 
 ## What libraries did we use?
   - For parsing the class files: [Apache Commons BCEL](http://commons.apache.org/proper/commons-bcel/)
-  - For writing unit tests: [JUnit](http://junit.org/junit4/)
+  - For writing unit tests: [JUnit 5](https://junit.org/junit5/docs/current/user-guide/)
 
 ## Interesting Java features used:
  - [Optional values](http://www.oracle.com/technetwork/articles/java/java8-optional-2175753.html)
