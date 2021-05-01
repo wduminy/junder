@@ -9,28 +9,30 @@ import javax.swing.JOptionPane;
 
 import org.junder.util.Messenger;
 
+@SuppressWarnings("deprecation")
 final public class TasksModel extends Observable implements Messenger {
 	private ArrayList<String> taskNames = new ArrayList<>();
 	private String errorText = null;
 	private String message = "";
-	
+
 	public void startTask(String name) {
-		errorText = null; 
+		errorText = null;
 		message = "";
 		taskNames.add(name);
 		notifyChanged();
 	}
-	
+
 	/**
-	 * Return the name of the task last started and not yet done.
-	 * If no task has been started, return nothing
+	 * Return the name of the task last started and not yet done. If no task has
+	 * been started, return nothing
+	 * 
 	 * @return
 	 */
 	public Optional<String> getExecutingTaskName() {
 		if (taskNames.isEmpty())
 			return Optional.empty();
 		else
-			return Optional.of(taskNames.get(taskNames.size()-1));
+			return Optional.of(taskNames.get(taskNames.size() - 1));
 	}
 
 	public void endTask(String name) {
@@ -40,7 +42,7 @@ final public class TasksModel extends Observable implements Messenger {
 	}
 
 	public boolean hasError() {
-		return errorText != null; 
+		return errorText != null;
 	}
 
 	public String getErrorText() {
@@ -56,12 +58,12 @@ final public class TasksModel extends Observable implements Messenger {
 	}
 
 	public void setMessageAsync(String msg) {
-		EventQueue.invokeLater(()->{
+		EventQueue.invokeLater(() -> {
 			message = msg;
 			notifyChanged();
 		});
 	}
-	
+
 	public String getMessage() {
 		return message;
 	}
@@ -70,7 +72,7 @@ final public class TasksModel extends Observable implements Messenger {
 		setChanged();
 		notifyObservers(ModelEvent.TasksChanged);
 	}
-	
+
 	@Override
 	public void warn(String msg) {
 		System.out.println("WARNING:" + msg);
@@ -85,7 +87,7 @@ final public class TasksModel extends Observable implements Messenger {
 	@Override
 	public void error(String msg) {
 		System.err.println("ERROR:" + msg);
-		JOptionPane.showMessageDialog(null, msg, "A processing error occurred" ,JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog(null, msg, "A processing error occurred", JOptionPane.ERROR_MESSAGE);
 	}
 
 	public void exception(Exception e) {

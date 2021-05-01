@@ -12,16 +12,16 @@ import java.awt.BorderLayout;
 import java.util.Observable;
 import java.util.Observer;
 
-
 /**
  * Container for the elements of the matrix view
  */
+@SuppressWarnings("deprecation")
 public final class DependencyView extends JPanel {
 
 	private static final long serialVersionUID = -3064817230659716282L;
 	private MatrixWidget matrixWidget;
 	private final Observer modelObserver = new Observer() {
-		
+
 		@Override
 		public void update(Observable o, Object arg) {
 			if (arg == ModelEvent.MatrixLoaded) {
@@ -40,19 +40,19 @@ public final class DependencyView extends JPanel {
 	 */
 	public DependencyView() {
 		setLayout(new BorderLayout(0, 0));
-		
+
 		JSplitPane splitPane = new JSplitPane();
 		splitPane.setResizeWeight(0.8);
 		splitPane.setOneTouchExpandable(true);
 		add(splitPane, BorderLayout.CENTER);
-		
+
 		matrixWidget = new MatrixWidget();
 		splitPane.setLeftComponent(matrixWidget);
 		cellInfoWidget = new CellInfoWidget();
-		AppModel.instance.document.addObserver(modelObserver);		
+		AppModel.instance.document.addObserver(modelObserver);
 		splitPane.setRightComponent(cellInfoWidget);
 	}
-	
+
 	public MatrixWidget getMatrixWidget() {
 		return matrixWidget;
 	}

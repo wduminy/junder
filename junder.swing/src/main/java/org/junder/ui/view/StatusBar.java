@@ -12,18 +12,19 @@ import org.junder.ui.model.Document;
 import org.junder.ui.model.ModelEvent;
 import org.junder.ui.model.TasksModel;
 
+@SuppressWarnings("deprecation")
 public class StatusBar extends JPanel {
 
 	private static final long serialVersionUID = 3469560721990241863L;
 	private Observer modelObserver = new Observer() {
-		
+
 		@Override
 		public void update(Observable o, Object arg) {
 			if (arg == ModelEvent.TasksChanged) {
 				if (tasks.hasError()) {
 					statusLabel.setText(tasks.getErrorText());
 					statusLabel.setForeground(Color.RED);
-				} else {				
+				} else {
 					statusLabel.setText(tasks.getExecutingTaskName().orElse("Ready"));
 					statusLabel.setForeground(Color.BLACK);
 				}
@@ -33,7 +34,7 @@ public class StatusBar extends JPanel {
 			}
 		}
 	};
-	private JLabel statusLabel,messageLabel;
+	private JLabel statusLabel, messageLabel;
 	private TasksModel tasks;
 	private JLabel docStatus;
 	private Document doc;
@@ -46,7 +47,7 @@ public class StatusBar extends JPanel {
 		add(statusLabel, BorderLayout.WEST);
 		add(messageLabel, BorderLayout.EAST);
 		add(docStatus, BorderLayout.CENTER);
-		tasks = t; 
+		tasks = t;
 		doc = d;
 		doc.addObserver(modelObserver);
 		tasks.addObserver(modelObserver);

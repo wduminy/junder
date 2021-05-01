@@ -3,7 +3,14 @@
 	"configurations": [
 		{
 			"type": "java",
-			"name": "Swing on junder",
+			"name": "FX App",
+			"request": "launch",
+			"mainClass": "com.junder/com.junder.App",
+			"projectName": "fx"
+		},
+		{
+			"type": "java",
+			"name": "Swing App",
 			"request": "launch",
 			"mainClass": "org.junder.window.Junder",
 			"projectName": "swing",

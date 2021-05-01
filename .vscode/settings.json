@@ -7,5 +7,10 @@
 	"cSpell.words": [
 		"BCEL",
 		"Junder"
-	]
+	],
+	"maven.pomfile.autoUpdateEffectivePOM": true,
+	"maven.executable.preferMavenWrapper": false,
+	"maven.terminal.useJavaHome": true,
+	"java.home": "/Library/Java/JavaVirtualMachines/adoptopenjdk-11.jdk/Contents/Home",
+	"maven.view": "flat"
 }

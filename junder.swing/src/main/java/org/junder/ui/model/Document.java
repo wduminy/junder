@@ -10,8 +10,9 @@ import org.junder.widgets.model.CellPoint;
 import org.junder.widgets.model.Direction;
 import org.junder.widgets.model.MatrixSelection;
 
+@SuppressWarnings("deprecation")
 /**
- * An observer receives instance of {@link ModelEvent} 
+ * An observer receives instance of {@link ModelEvent}
  */
 public class Document extends Observable implements MatrixSelection, CellInfoModel {
 
@@ -23,7 +24,7 @@ public class Document extends Observable implements MatrixSelection, CellInfoMod
 	}
 
 	public void setStructure(ProgramStructure s) {
-		model = new AdjacencyModel(this,s.getPackages());
+		model = new AdjacencyModel(this, s.getPackages());
 		notifyChange(ModelEvent.MatrixLoaded);
 		setSelectedCell(CellPoint.Origin);
 	}
@@ -40,7 +41,7 @@ public class Document extends Observable implements MatrixSelection, CellInfoMod
 
 	@Override
 	public void setSelectedCell(CellPoint v) {
-		if (v.inRange(model.getColumnCount()-1,model.getRowCount()-1)) {
+		if (v.inRange(model.getColumnCount() - 1, model.getRowCount() - 1)) {
 			selectedCell = Optional.of(v);
 			notifyChange(ModelEvent.SelectionChanged);
 		}
@@ -80,13 +81,13 @@ public class Document extends Observable implements MatrixSelection, CellInfoMod
 				setSelectedCell(oldCell.left());
 				break;
 			case Right:
-				setSelectedCell(oldCell.right(model.getColumnCount()-1));
+				setSelectedCell(oldCell.right(model.getColumnCount() - 1));
 				break;
 			case Up:
 				setSelectedCell(oldCell.up());
 				break;
 			case Down:
-				setSelectedCell(oldCell.down(model.getRowCount()-1));
+				setSelectedCell(oldCell.down(model.getRowCount() - 1));
 				break;
 			case Next:
 				setSelectedCell(nextWithValue(oldCell));
@@ -98,18 +99,18 @@ public class Document extends Observable implements MatrixSelection, CellInfoMod
 	}
 
 	private CellPoint nextWithValue(CellPoint from) {
-		final CellPoint last = new CellPoint(model.getColumnCount()-1, model.getRowCount()-1);
-		CellPoint at = from.next(last.col,last.row);
+		final CellPoint last = new CellPoint(model.getColumnCount() - 1, model.getRowCount() - 1);
+		CellPoint at = from.next(last.col, last.row);
 		while (!at.equals(last)) {
 			if (model.getCellValue(at.col, at.row) > 0)
 				return at;
-			at = at.next(last.col,last.row);
+			at = at.next(last.col, last.row);
 		}
 		return at;
 	}
 
 	private CellPoint previousWithValue(CellPoint from) {
-		final int lastColumn = model.getColumnCount()-1;
+		final int lastColumn = model.getColumnCount() - 1;
 		CellPoint at = from.previous(lastColumn);
 		while (!at.equals(CellPoint.Origin)) {
 			if (model.getCellValue(at.col, at.row) > 0)
@@ -126,19 +127,18 @@ public class Document extends Observable implements MatrixSelection, CellInfoMod
 	public void makeColumnMatrix() {
 		createChildMatrix(getSelectedCell().get().col);
 	}
-	
+
 	private void createChildMatrix(int index) {
 		JavaPackage p = model.getPackage(index);
-		model = new AdjacencyModel(this,getModel().linkedPackages(p),model);
+		model = new AdjacencyModel(this, getModel().linkedPackages(p), model);
 		selectedCell = Optional.empty();
 		notifyChange(ModelEvent.MatrixLoaded);
 	}
-	
-	
+
 	public void gotoParentMatrix() {
 		model = getModel().getParent().get();
 		selectedCell = Optional.empty();
-		notifyChange(ModelEvent.MatrixLoaded);	
+		notifyChange(ModelEvent.MatrixLoaded);
 	}
 
 }
