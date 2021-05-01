@@ -1,22 +1,21 @@
 package org.junder.structure;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class AdjacencyStructureTest {
 
 	@Test
 	public void optimise() {
-		AdjacencyStructure s = new AdjacencyStructure(
-				new PackageList("A -> B, B -> C, C->A,C->A"));
+		AdjacencyStructure s = new AdjacencyStructure(new PackageList("A -> B, B -> C, C->A,C->A"));
 		assertEquals(1, s.cycleUsingCount());
 	}
-	
+
 	@Test
 	public void subnetSimple() {
 		PackageList plist = new PackageList("A -> B, B -> C, B -> D");
@@ -25,7 +24,7 @@ public class AdjacencyStructureTest {
 		AdjacencyStructure sub = new AdjacencyStructure(linked);
 		assertEquals(3, sub.size());
 	}
-	
+
 	@Test
 	public void subnetWithLoop() {
 		PackageList plist = new PackageList("A -> B, B -> C, B -> D, D -> B");
@@ -35,7 +34,6 @@ public class AdjacencyStructureTest {
 		assertEquals(3, sub.size());
 	}
 
-	
 	private static class PackageList extends ArrayList<TestPackage> {
 
 		private static final long serialVersionUID = -4706128258615378852L;
@@ -54,16 +52,14 @@ public class AdjacencyStructureTest {
 
 		public TestPackage obtain(String name) {
 			TestPackage n = null;
-			TestPackage r = stream().
-					filter((e) -> e.getName().equals(name)).findFirst()
-					.orElse(n = new TestPackage(name));
+			TestPackage r = stream().filter((e) -> e.getName().equals(name)).findFirst().orElse(n = new TestPackage(name));
 			if (n != null)
 				add(n);
 			return r;
 		}
-		
+
 	}
-	
+
 	private static class TestPackage implements JavaPackage {
 		private String name;
 		private HashMap<TestPackage, Integer> usings = new HashMap<>();
@@ -71,9 +67,9 @@ public class AdjacencyStructureTest {
 		TestPackage(String n) {
 			name = n;
 		}
-		
+
 		public void addUsage(TestPackage toPackage) {
-			usings.put(toPackage, usings.getOrDefault(toPackage, 0)+1);
+			usings.put(toPackage, usings.getOrDefault(toPackage, 0) + 1);
 		}
 
 		@Override
@@ -111,7 +107,6 @@ public class AdjacencyStructureTest {
 			return usings.keySet();
 		}
 
-		
 	}
 
 }

@@ -1,16 +1,17 @@
 package org.junder.structure;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Collection;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class JavaPackageTest {
 
 	private static class TestPackage implements JavaPackage {
 
 		private final String name;
+
 		private TestPackage(String n) {
 			name = n;
 		}
@@ -51,10 +52,11 @@ public class JavaPackageTest {
 		}
 
 	}
-	
+
 	private String shortNameOf(String s) {
-		return new TestPackage(s).shortName(); 
+		return new TestPackage(s).shortName();
 	}
+
 	@Test
 	public void test() {
 		assertEquals("c.m.hello", shortNameOf("com.mycompany.hello"));

@@ -27,7 +27,7 @@ Command to run the application:
  
 ## Questions 
   - Why use streams?
-    - [David Hartveld](http://blog.hartveld.com/2013/03/jdk-8-33-stream-api.html) says it brings a lot of expressiveness, but there are shotcomings when compared to other languages. 
+    - [David Hartveld](http://blog.hartveld.com/2013/03/jdk-8-33-stream-api.html) says it brings a lot of expressiveness, but there are shortcomings when compared to other languages. 
     - The fact that streams cannot be reuse is a bit sad.
     - There are [subtle mistakes](https://blog.jooq.org/2014/06/13/java-8-friday-10-subtle-mistakes-when-using-the-streams-api/) to look out for while using streams
     - [Angelika Langer](https://jaxenter.com/java-performance-tutorial-how-fast-are-the-java-8-streams-118830.html) says streams are slower.
